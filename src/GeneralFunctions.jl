@@ -114,6 +114,8 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
                     for package in packages
                         packageString = packageString * package * ", " # append package to string
                     end # for
+                    packageString = packageString[1:length(packageString)-2] # remove last comma
+                    
                     println(io, packageString) # write package string to file
                 end # if
             end # open
@@ -128,6 +130,8 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
                     for package in packages
                         packageString = packageString * package * ", " # append package to string
                     end # for
+                    packageString = packageString[1:length(packageString)-2] # remove last comma
+
                     println(io, packageString) # write package string to file
                 end # if
 
@@ -145,6 +149,8 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
                     for package in packages
                         packageString = packageString * package * ", " # append package to string
                     end # for
+                    packageString = packageString[1:length(packageString)-2] # remove last comma
+
                     println(io, packageString * "\n\n") # write package string to file
                 end # if
 
@@ -159,7 +165,7 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
         elseif projectType == "module"
             # for python module, create module file in src 
             open(mainDirPath * "src/" * replace(projectName, " "=>"") * ".py", "w") do io # create file with name as project name w/o spaces 
-                println(io, "class " * replace(projectName, " "=>"" * "\n\n")) # write class header
+                println(io, "class " * replace(projectName, " "=>"" * "") * ":") # write class header
                 println(io, "    def __init__(self):") # write constructor header
                 println(io, "        pass") # write pass statement
             end # open
@@ -171,10 +177,12 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
                     for package in packages
                         packageString = packageString * package * ", " # append package to string
                     end # for
+                    packageString = packageString[1:length(packageString)-2] # remove last comma
+
                     println(io, packageString * "\n\n") # write package string to file
                 end # if
 
-                println(io, "from ." * replace(projectName, " "=>"" * " import ") * replace(projectName, " "=>"")) # write import statement
+                println(io, "from ." * replace(projectName, " "=>"") * " import " * replace(projectName, " "=>"")) # write import statement
             end # open
 
         end # if
