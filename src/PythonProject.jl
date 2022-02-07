@@ -8,7 +8,7 @@ export create_python_project
 Create python project. 
 
 """
-function create_python_project(parentPath::String, projectName::String, projectType::String; wakatime::Bool=false, packages::Vector{String}=Vector{String}())
+function create_python_project(parentPath::String, projectName::String, projectType::String; wakatime::Bool=false, packages::Vector{String}=Vector{String}(), git::Bool=false)
     # basic folder and git creation stuff
     create_project_dir(parentPath, projectName)
     create_readme(parentPath, projectName)
@@ -22,6 +22,11 @@ function create_python_project(parentPath::String, projectName::String, projectT
 
     # handle dependencies
     create_dependencies(parentPath, projectName; packages=packages)
+
+    if git
+        create_gitignore(parentPath, projectName)
+        setup_git(parentPath, projectName)
+    end # if
     
 end # function
 

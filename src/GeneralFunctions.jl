@@ -189,3 +189,40 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
     end # if
 end # function create_main_files
     
+
+"""
+Generate .gitignore file with specified files included
+
+"""
+function create_gitignore(parentPath::String, projectName::String; files::Vector{String}=Vector{String}())
+    mainDirName = replace(projectName, " "=>"_") # replace spaces with underscores
+
+    mainDirPath = parentPath * "/" * mainDirName * "/" # get path to main directory
+
+    # create .gitignore file
+    open(mainDirPath * ".gitignore", "w") do io 
+        for file in files # for each file in files
+            println(io, file) # write file to file
+        end # for
+    end # open
+
+end # function create_gitignore
+
+"""
+Initializes git repository and stages first commit. 
+
+"""
+function setup_git(parentPath::String, projectName::String)
+    mainDirName = replace(projectName, " "=>"_") # replace spaces with underscores
+
+    mainDirPath = parentPath * "/" * mainDirName * "/" # get path to main directory
+
+    cd(mainDirPath) # change to main directory
+
+    # initialize git repository
+    run(`git init`) # run git init command
+    run(`git add -A`) # run git add command
+    run(`git commit -m "Initial commit"`) # run git commit command
+    run(`git branch -M main`)
+
+end # function setup_git
