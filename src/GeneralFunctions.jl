@@ -90,10 +90,10 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
         # copy latex file from template
         templateString = "" # initialize string
 
-        open("./templates/latexTemplate") do io 
+        open("./src/templates/latexTemplate") do io 
             for line in eachline(io) # for each line in template file
                 if line == "\\title{Placeholder}" # if title section, replace with project title
-                    templateString = templateString * "\\title{$projectName}"
+                    templateString = templateString * "\\title{$projectName}\n"
                 else
                     templateString = templateString * line * "\n" # append line to string
                 end # if 
@@ -115,7 +115,7 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
                         packageString = packageString * package * ", " # append package to string
                     end # for
                     packageString = packageString[1:length(packageString)-2] # remove last comma
-                    
+
                     println(io, packageString) # write package string to file
                 end # if
             end # open

@@ -2,9 +2,11 @@ module ProjectCreator
 
 include("JuliaProject.jl")
 include("PythonProject.jl")
+include("LatexProject.jl")
 
 using .JuliaProject
 using .PythonProject
+using .LatexProject
 
 export create_project
 
@@ -17,6 +19,8 @@ function create_project(parentPath::String, projectName::String, projectLang::St
         create_julia_project(parentPath, projectName, projectType; wakatime=wakatime, packages=packages)
     elseif projectLang == "python"
         create_python_project(parentPath, projectName, projectType; wakatime=wakatime, packages=packages)
+    elseif projectLang == "latex"
+        create_latex_project(parentPath, projectName; wakatime=wakatime)
     else
         throw(DomainError(projectLang, "This language is not supported."))
     end # if
