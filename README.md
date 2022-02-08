@@ -22,7 +22,7 @@ Self explainatory, the name of the project. If the name of the project is multip
 
 #### project_path 
 
-The path to the directory in which you want the project to be created (the path to the parent directory). 
+The path to the directory in which you want the project to be created (the path to the parent directory). This must be **relative** to where you are running this command. 
 
 #### language
 
