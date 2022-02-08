@@ -26,7 +26,11 @@ function create_julia_project(parentPath::String, projectName::String, projectTy
     activate_project(parentPath, projectName; packages=packages)
 
     if git
-        create_gitignore(parentPath, projectName)
+        if wakatime # if wakatime, add .wakatime-project to .gitignore
+            create_gitignore(parentPath, projectName; files=[".wakatime-project"])
+        else 
+            create_gitignore(parentPath, projectName)
+        end # if
         setup_git(parentPath, projectName)
     end # if
 end # function
