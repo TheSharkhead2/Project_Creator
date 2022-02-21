@@ -1,5 +1,7 @@
 module LatexProject 
 
+using Dates
+
 include("GeneralFunctions.jl")
 
 export create_latex_project
