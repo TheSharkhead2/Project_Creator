@@ -89,6 +89,7 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
 
         # write template to main file
         open(mainDirPath * mainDirName * ".tex", "w") do io 
+            # create basic file with some formatting and useful packages imported
             println(io, "\\documentclass{article}")
             println(io, "\\usepackage[utf8]{inputenc}")
             println(io, "\\usepackage{textcomp}")
@@ -112,16 +113,16 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
             println(io, "\\parindent=.2in")
             println(io, "\\pagestyle{plain}")
             println(io, "\n")
-            println(io, "\\title{Placeholder}")
+            println(io, "\\title{$projectName}") # put in name of project
             println(io, "\\author{}")
-            println(io, "\\date{}")
+            println(io, "\\date{$(string(monthname(today()))) $(year(today()))}") # format project with current month and year
             println(io, "\n")
             println(io, "\\begin{document}")
             println(io, "\n")
             println(io, "\\maketitle")
             println(io, "\n")
             println(io, "\\end{document}")
-            
+
         end # open
 
     elseif projectLang == "julia"
