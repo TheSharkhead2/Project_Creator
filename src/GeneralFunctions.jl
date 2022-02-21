@@ -87,22 +87,40 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
     if projectLang == "latex" # LaTeX projects are different, so handle them first. (no script vs module)
         mkdir(mainDirPath * "images") # create images directory
 
-        # copy latex file from template
-        templateString = "" # initialize string
-
-        open("./src/templates/latexTemplate") do io 
-            for line in eachline(io) # for each line in template file
-                if line == "\\title{Placeholder}" # if title section, replace with project title
-                    templateString = templateString * "\\title{$projectName}\n"
-                else
-                    templateString = templateString * line * "\n" # append line to string
-                end # if 
-            end # for
-        end # open
-
         # write template to main file
         open(mainDirPath * mainDirName * ".tex", "w") do io 
-            println(io, templateString) # write template to file
+            println(io, "\\documentclass{article}")
+            println(io, "\\usepackage[utf8]{inputenc}")
+            println(io, "\\usepackage{textcomp}")
+            println(io, "\\usepackage{gensymb}")
+            println(io, "\\usepackage{graphicx}")
+            println(io, "\\usepackage{multicol}")
+            println(io, "\\usepackage{amsmath}")
+            println(io, "\\usepackage{amssymb}")
+            println(io, "\\usepackage{physics}")
+            println(io, "\\usepackage{hyperref}")
+            println(io, "\\usepackage{cancel}")
+
+            println(io, "\\graphicspath{ {./images/} }")
+
+            println(io, "\\oddsidemargin=-.3in")
+            println(io, "\\evensidemargin=-.5in")
+            println(io, "\\textwidth=7in")
+            println(io, "\\topmargin=-1in")
+            println(io, "\\textheight=10in")
+
+            println(io, "\\parindent=.2in")
+            println(io, "\\pagestyle{plain}")
+
+            println(io, "\\title{Placeholder}")
+            println(io, "\\author{}")
+            println(io, "\\date{}")
+
+            println(io, "\\begin{document}")
+
+            println(io, "\\maketitle")
+
+            println(io, "\\end{document}")
         end # open
 
     elseif projectLang == "julia"
