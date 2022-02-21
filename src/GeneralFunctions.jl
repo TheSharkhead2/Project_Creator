@@ -100,27 +100,28 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
             println(io, "\\usepackage{physics}")
             println(io, "\\usepackage{hyperref}")
             println(io, "\\usepackage{cancel}")
-
+            println(io, "\n")
             println(io, "\\graphicspath{ {./images/} }")
-
+            println(io, "\n")
             println(io, "\\oddsidemargin=-.3in")
             println(io, "\\evensidemargin=-.5in")
             println(io, "\\textwidth=7in")
             println(io, "\\topmargin=-1in")
             println(io, "\\textheight=10in")
-
+            println(io, "\n")
             println(io, "\\parindent=.2in")
             println(io, "\\pagestyle{plain}")
-
+            println(io, "\n")
             println(io, "\\title{Placeholder}")
             println(io, "\\author{}")
             println(io, "\\date{}")
-
+            println(io, "\n")
             println(io, "\\begin{document}")
-
+            println(io, "\n")
             println(io, "\\maketitle")
-
+            println(io, "\n")
             println(io, "\\end{document}")
+            
         end # open
 
     elseif projectLang == "julia"
