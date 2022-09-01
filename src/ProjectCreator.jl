@@ -20,7 +20,11 @@ function create_project(parentPath::String, projectName::String, projectLang::St
     elseif projectLang == "python"
         create_python_project(parentPath, projectName, projectType; wakatime=wakatime, packages=packages, git=git)
     elseif projectLang == "latex"
-        create_latex_project(parentPath, projectName; wakatime=wakatime, git=git)
+        if projectType == "hmcmath"
+            create_latex_project(parentPath, projectName, projectType; wakatime=wakatime, git=git)
+        else 
+            create_latex_project(parentPath, projectName, "none"; wakatime=wakatime, git=git)
+        end # if
     else
         throw(DomainError(projectLang, "This language is not supported."))
     end # if

@@ -11,9 +11,12 @@ else
     throw(DomainError(ARGS[3], "This language isn't supported yet. Must be one of the following: [python, julia, latex]"))
 end # if
 
-if lowercase(ARGS[4]) in ["module", "script"]
+if lowercase(ARGS[4]) in ["module", "script", "hmcmath"]
+    if lowercase(ARGS[3]) != "latex" && lowercase(ARGS[4]) == "hmcmath"
+        throw(DomainError(ARGS[4], "This project type: $(ARGS[4]) isn't supported for this language: $(ARGS[3])."))
+    end # if
 else 
-    throw(DomainError(ARGS[4], "This project type isn't supported yet. Must be one of the following: [module, script]"))
+    throw(DomainError(ARGS[4], "This project type isn't supported yet. Must be one of the following: [module, script, hmcmath]"))
 end # if
 
 println("Creating a $(ARGS[4]) project with name $(ARGS[1]) in the directory $(ARGS[2]) using the language: $(ARGS[3]).")

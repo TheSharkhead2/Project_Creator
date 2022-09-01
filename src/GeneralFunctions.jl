@@ -86,11 +86,16 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
     # create main file(s) based on project type
     if projectLang == "latex" # LaTeX projects are different, so handle them first. (no script vs module)
         mkdir(mainDirPath * "images") # create images directory
+         
 
         # write template to main file
         open(mainDirPath * mainDirName * ".tex", "w") do io 
             # create basic file with some formatting and useful packages imported
-            println(io, "\\documentclass{article}")
+            if projectType == "hmcmath" # if project is a hmc hw assignment, set documentclass differently 
+                println(io, "\\documentclass[12pt,letterpaper,boxed]{hmcpset}")
+            else
+                println(io, "\\documentclass{article}")
+            end # if
             println(io, "\\usepackage[utf8]{inputenc}")
             println(io, "\\usepackage{textcomp}")
             println(io, "\\usepackage{gensymb}")
@@ -104,26 +109,45 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
             println(io, "\n")
             println(io, "\\graphicspath{ {./images/} }")
             println(io, "\n")
-            println(io, "\\oddsidemargin=-.3in")
-            println(io, "\\evensidemargin=-.5in")
-            println(io, "\\textwidth=7in")
-            println(io, "\\topmargin=-1in")
-            println(io, "\\textheight=10in")
-            println(io, "\n")
-            println(io, "\\parindent=.2in")
-            println(io, "\\pagestyle{plain}")
-            println(io, "\n")
-            println(io, "\\title{$projectName}") # put in name of project
-            println(io, "\\author{}")
-            println(io, "\\date{$(string(monthname(today()))) $(year(today()))}") # format project with current month and year
-            println(io, "\n")
+            if projectType == "hmcmath" # if project is hmc hw, formatting in seperate file 
+                println(io, "\\usepackage[margin=1in]{geometry}")
+                println(io, "\n") 
+                println(io, "% info for header block in upper right hand corner")
+                println(io, "\\name{}")
+                println(io, "\\class{}")
+                println(io, "\\assignment{}")
+                println(io, "\\duedate{}")
+
+            else 
+                println(io, "\\oddsidemargin=-.3in")
+                println(io, "\\evensidemargin=-.5in")
+                println(io, "\\textwidth=7in")
+                println(io, "\\topmargin=-1in")
+                println(io, "\\textheight=10in")
+                println(io, "\n")
+                println(io, "\\parindent=.2in")
+                println(io, "\\pagestyle{plain}")
+                println(io, "\n")
+                println(io, "\\title{$projectName}") # put in name of project
+                println(io, "\\author{}")
+                println(io, "\\date{$(string(monthname(today()))) $(year(today()))}") # format project with current month and year
+                println(io, "\n")
+            end # if
             println(io, "\\begin{document}")
             println(io, "\n")
-            println(io, "\\maketitle")
+            if projectType == "hmcmath" # different intro for hmc math template
+                println(io, "\\problemlist{}")
+            else
+                println(io, "\\maketitle")
+            end # if
             println(io, "\n")
             println(io, "\\end{document}")
 
         end # open
+
+        if projectType == "hmcmath" # if project is hmc math, need cls file 
+            download("https://raw.githubusercontent.com/hmcmathematics/hmcpset-class/master/hmcpset.cls", mainDirPath * "hmcpset.cls")
+        end # if
 
     elseif projectLang == "julia"
         if projectType == "script"

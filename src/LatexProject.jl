@@ -10,7 +10,7 @@ export create_latex_project
 Create LaTeX project.
 
 """
-function create_latex_project(parentPath::String, projectName::String; wakatime::Bool=false, git::Bool=false)
+function create_latex_project(parentPath::String, projectName::String, projectType::String; wakatime::Bool=false, git::Bool=false)
     mainDirName = replace(projectName, " "=>"_") # replace spaces with underscores
 
     # create main directory
@@ -24,7 +24,7 @@ function create_latex_project(parentPath::String, projectName::String; wakatime:
     end # if 
 
     # create project file
-    create_main_files(parentPath, projectName, "latex", "none")
+    create_main_files(parentPath, projectName, "latex", projectType)
 
     if git
         create_gitignore(parentPath, projectName; files=[mainDirName * ".aux", mainDirName * ".fls", mainDirName * ".log", mainDirName * ".out", mainDirName * ".synctex.gz", mainDirName * ".fdb_latexmk"]) # add all irritating rendering files from vs code extension to gitignore
