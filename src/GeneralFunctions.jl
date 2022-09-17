@@ -107,6 +107,8 @@ function create_main_files(parentPath::String, projectName::String, projectLang:
             println(io, "\\usepackage{hyperref}")
             println(io, "\\usepackage{cancel}")
             println(io, "\n")
+            println(io, "\\newcommand{\\der}[2][]{\\frac{\\mathrm d #1}{\\mathrm d #2}}")
+            println(io, "\n")
             println(io, "\\graphicspath{ {./images/} }")
             println(io, "\n")
             if projectType == "hmcmath" # if project is hmc hw, formatting in seperate file 
