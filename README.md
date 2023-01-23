@@ -1,5 +1,8 @@
 # Project Creator
 
+NOTE: A new version of this project exists here: [Project Creator 2](https://github.com/TheSharkhead2/Project_Creator_2/tree/main). It is much better so just use that if you are curious, I am no longer working on this project and it is hard to use. 
+
+
 This is a small project aimed at creating the bare-bones files and folders for various project types. Currently, I have not compiled an executable so you will have to have Julia installed in order to use it. If you are using the git functionality, you will also need git installed.
 
 ## Usage
